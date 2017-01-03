@@ -14,18 +14,19 @@
             <article>
                 <ul>
                     <li v-for="(person, index) in people">
-
                         <h3>{{person.name}} {{index}}</h3>
+                        <button v-on:click="deletePersona(index)">Delete Persona</button>
+
                         <input v-model="person.name" />
                         <ul>
-                            <li v-for="(attr, attrIndex) in attributes">
-                                <input v-model="person.attrData[attrIndex].name" />
-                                <input type="range" min=0 max=100 v-model="person.attrData[attrIndex].range" range="" /> {{person.attrData[attrIndex].range}}
-                                <p>{{person.attrData[attrIndex].notes}}</p>
-                                <button v-on:click="removeAttr(attr)">Remove Attribute</button>
+                            <li v-for="(attr, attrIndex) in attributes" v-if="attr">
+                                <input v-model="attr.title" />
+                                <input type="range" min=0 max=5 v-model="person.attributes[attrIndex].range" range="" />
+                                {{person.attributes[attrIndex].range}}
+                                <!-- <p>{{attr.notes}}</p> -->
+                                <button v-on:click="removeAttr(attrIndex)">Remove Attribute</button>
                             </li>
 
-                        <button v-on:click="deletePersona(person)">Delete Persona</button>
                     </li>
                 </ul>
             </article>

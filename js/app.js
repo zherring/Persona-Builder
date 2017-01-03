@@ -5,36 +5,42 @@ new Vue({
         header: "Persona Creator",
         people: [
             {
-                name: "Jeff",
-                attrData: [
-                { name: "Attr Name", range: 57, notes: "Nada"},
-                { name: "Attr Name2", range: 67, notes: "Nada"},
-                { name: "Attr Name3", range: 98, notes: "Nada"}
+            name: "Jim",
+            attributes: [
+                {range : 5}
                 ]
-              },
+            },
+            {
+            name: "Ted",
+            attributes: [
+                {range : 1}
+                ]
+            }
         ],
-        attributes: ["Attribute 1", "Attribute 2", "Attribute 3"]
+        attributes: [ { title : "Reading" } ]
     },
     methods: {
         createPersona: function() {
+            const newInd = this.people.length;
             this.people.push({
-            name: "John Doe",
-            attrData: [
-            { name: "Attr Name", range: 57, notes: "Nada"},
-            { name: "Attr Name2", range: 67, notes: "Nada"},
-            { name: "Attr Name3", range: 98, notes: "Nada"}
-            ]
-          });
+                name: "John Doe",
+                attributes: []
+            })
+            this.attributes.forEach(entry => this.people[newInd].attributes.push({range: 3}))
         },
         deletePersona: function(index) {
+                console.log(index);
                 this.people.splice(index, 1);
+                console.log(this.people);
+
         },
         addAttr: function() {
-            this.attributes.push("New Attribute");
-
+            this.attributes.push({title : "New Attribute"});
+            this.people.forEach( person => person.attributes.push({ range : 3}));
         },
         removeAttr: function(index) {
                 this.attributes.splice(index, 1);
+                this.people.forEach( person => person.attributes.splice(index, 1));
         },
     }
 });
