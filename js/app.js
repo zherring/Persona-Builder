@@ -15,16 +15,12 @@ new Vue({
                 .then(data => data.json())
                 .then(function(myBlob) {
                     VueThis.people[personIndex].name = `${myBlob.results[0].name.first} ${myBlob.results[0].name.last}`;
-                    VueThis.people[personIndex].pics = myBlob.results[0].picture.large  ;
+                    VueThis.people[personIndex].pics = myBlob.results[0].picture.large;
                 });
         },
         createPersona: function() {
             if (this.people.length <= 4) {
             const newInd = this.people.length;
-
-            let name = " ";
-            let picLarge = " ";
-            let picSmall = " ";
 
             this.people.push({
                 name: name,
