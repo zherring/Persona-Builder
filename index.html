@@ -13,9 +13,8 @@
 
             <div id="workarea">
                 <article class="page" v-for="(person, index) in people">
-                    {{person}}
-                            <img :src="person.picLarge" />
-                            <h3>{{person.name}}</h3>
+                            <img :src="person.pics" />
+                            <h3>{{person.name}}</h3> <button v-on:click="randomizeUser(index)">Randomize User</button>
                             <button v-on:click="deletePersona(index)">Delete Persona</button>
                             <input v-model="person.name" />
                             <textarea>
@@ -34,8 +33,7 @@
                 </article>
             </div>
             <button v-on:click="createPersona">Add Persona</button>
-            <button v-on:click="addAttr">Add Attribute</button>
-            <button v-on:click="randomizeUser">Randomize User</button>
+            <button v-on:click="addAttr()">Add Attribute</button>
 
         </div>
 
