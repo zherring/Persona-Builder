@@ -1,4 +1,3 @@
-
 new Vue({
     el: '#personaMain',
     data: {
@@ -6,12 +5,14 @@ new Vue({
         people: [
             {
             name: "Jim",
+            notes: "Nada",
             attributes: [
                 {range : 5}
                 ]
             },
             {
             name: "Ted",
+            notes: "Nada",
             attributes: [
                 {range : 1}
                 ]
@@ -20,13 +21,50 @@ new Vue({
         attributes: [ { title : "Reading" } ]
     },
     methods: {
+        randomizeUser: function(personIndex) {
+            let VueThis = this;
+
+            fetch("https://randomuser.me/api/?inc=name,picture")
+                .then(blob=>blob.json())
+                .then(function(data) {
+                    return VueThis.people[personIndex].name = data.results[0].name.first + " " + data.results[0].name.last;
+                    // return console.log("logging results", data.results[0].picture.medium);
+                    // return VueThis.people[personIndex].picLarge = data.results[0].picture.medium;
+                    // return VueThis.people[personIndex].picSmall = data.results[0].picture.thumbnail;
+
+                    return VueThis.people[personIndex].picSmall = "New Default";
+                    //         this.people[newInd]
+
+                    // return name = "Sam";
+                });
+                // .then(data => name = data);
+                // .then(data => name = `${data.results.name.first} ${data.results.name.last}`);
+
+
+                console.log(name);
+                // return randoName = `${results.name.first} ${results.name.last}`
+                // return randoPictureLarge = results.picture.medium;
+                // return randoPictureThumb = results.picture.thumbnail;
+        },
         createPersona: function() {
+            if (this.people.length <= 4) {
             const newInd = this.people.length;
+
+            let name = "Default";
+            let picLarge = "Default";
+            let picSmall = "Default";
+
             this.people.push({
-                name: "John Doe",
+                name: name,
+                notes: "Nada",
+                picLarge: picLarge,
+                picSmall: picSmall,
                 attributes: []
             })
+            this.randomizeUser(newInd);
             this.attributes.forEach(entry => this.people[newInd].attributes.push({range: 3}))
+
+        } else { window.alert("Too many Personas. Stahp."); }
         },
         deletePersona: function(index) {
                 console.log(index);
