@@ -7,9 +7,7 @@ new Vue({
     },
     methods: {
         randomizeUser: function(personIndex) {
-            console.log("fired");
             let VueThis = this;
-            var holder;
 
             fetch("https://randomuser.me/api/?inc=name,picture")
                 .then(data => data.json())
@@ -30,23 +28,19 @@ new Vue({
             })
             this.randomizeUser(newInd);
             this.attributes.forEach(entry => this.people[newInd].attributes.push({range: 3}))
-
-
-        } else { window.alert("Too many Personas. Stahp."); }
+            } else { window.alert("Too many Personas. Stahp."); }
         },
         deletePersona: function(index) {
-                console.log(index);
-                this.people.splice(index, 1);
-                console.log(this.people);
-
+            this.people.splice(index, 1);
+            console.log(this.people);
         },
         addAttr: function(attrName = "Default Attribute") {
             this.attributes.push({title : attrName });
             this.people.forEach( person => person.attributes.push({ range : 3}));
         },
         removeAttr: function(index) {
-                this.attributes.splice(index, 1);
-                this.people.forEach( person => person.attributes.splice(index, 1));
+            this.attributes.splice(index, 1);
+            this.people.forEach( person => person.attributes.splice(index, 1));
         },
     },
     created: function () {
