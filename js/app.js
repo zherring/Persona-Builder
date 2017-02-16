@@ -23,6 +23,8 @@ new Vue({
             this.people.push({
                 name: name,
                 notes: "Nada",
+                goals: [],
+                fears: [],
                 pics: [],
                 attributes: []
             })
