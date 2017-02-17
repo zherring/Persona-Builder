@@ -2,14 +2,22 @@ $white: #FFF;
 * { box-sizing: border-box; }
 
 html, body { margin: 0; padding: 0; height: 100%;}
-body { background: #efefef; font-size: 16px; font-family: Helvetica, Arial, san-serif; }
+body {
+    background: #efefef;
+    font-size: 16px;
+    font-family: Helvetica, Arial, san-serif;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    background-size: contain;
+    }
 
 h1,h2,h3,h4 {
     text-align: center;
 }
 
-h3 {
+h3, .h3 {
 
+    font-weight: bold;
+    font-size: 1.3em;
     display: flex;
     align-items: center;
 
@@ -27,9 +35,15 @@ h3 {
 .help { color: black; }
 
 .profilepic { background: #AAA; height: 3em; width: 3em; border-radius: 50%; }
-
+.face-and-name {
+    input { text-align: center; }
+}
 .hidden { display: none; }
 
+.section-header {
+    .header-buffer { width: auto; flex-grow: 2; background: #4DB29E; height: 1px; }
+    .header-title { flex-grow: 1; }
+}
 
 #workarea {
     display: flex;
@@ -37,7 +51,7 @@ h3 {
     flex-direction: row;
 }
 .page {
-    max-width: 30em;
+    max-width: 40em;
     background: $white;
     padding: 1em;
     margin: 1em;
@@ -63,19 +77,28 @@ article {
 }
 
 input, textarea {
-    width: 100%;
+    // width: 100%;
     font-size: 1em;
     background: transparent;
     border: none;
     border-radius: 0;
-    border-bottom: 2px solid #efefef;
+    // border-bottom: 2px solid #efefef;
     transition: all .1s ease-in-out;
 
+    &:focus { outline: none; }
     &.txt-right { text-align: right;}
-    &:focus { border-bottom: 3px solid #4DB29E; outline: transparent; }
+    &.attr:focus { border-bottom: 3px solid #4DB29E; }
 }
 
 input { height: 4ch; }
+
+.goals span, .fears span {
+    &::before {
+        content: "•";
+        width: .2em;
+
+    }
+}
 
 textarea {
     width: 100%;
@@ -88,4 +111,9 @@ textarea {
     border-radius: 50%;
     border: #efefef solid .5em;
     padding: .2em;
+}
+
+.attributes {
+    h3 { flex-grow: 2; width: 100%; }
+    span { flex-grow: 1; width: 50%; padding: .25em;  }
 }

@@ -21,38 +21,49 @@
                     <button v-on:click="randomizeUser(index)">Randomize User</button>
                     <button v-on:click="deletePersona(index)">Delete Persona</button>
                         <section class="face-and-name flex flex-row flex-sp-ar flex-al-cn">
-                            <input v-model="person.name.first" class="txt-right tx-tf-uc" />
+                            <input v-model="person.name" class="tx-tf-uc" />
                             <img :src="person.pics" class="persona-pic"/>
-                            <input v-model="person.name.last" class="tx-tf-uc" />
+                            <input v-model="person.title" class="tx-tf-uc title" />
                         </section>
                         <section class="bio">
-                            <h3>Bio</h3>
-                            <textarea class="bio-textarea">
+                            <input v-model="notes" class="h3" />
+                            <textarea class="bio-textarea attr">
                                 {{person.notes}}
                             </textarea>
                         </section>
 
                         <section class="goals half">
-                            <h3>Goals</h3>
-                            <input v-for="(goal, goalIndex) in person.goals" v-model="person.goals[goalIndex]"
-                                @keydown.enter="addItem(person.goals)"
-                                @keydown.delete="removeItem(person.goals, goalIndex, $event)"
-                                />
+                            <div class="section-header flex flex-row flex-al-cn">
+                                <div class="header-buffer"></div>
+                                <input v-model="ol1" class="h3 section-title" />
+                                <div class="header-buffer"></div>
+                            </div>
+                            <span v-for="(item, index) in person.ol1" class="flex flex-row flex-sp-ar flex-al-cn">
+                                <input
+                                    v-model="person.ol1[index]"
+                                    @keydown.enter="addItem(person.ol1)"
+                                    @keydown.delete="removeItem(person.ol1, index, $event)"
+                                    class="attr"
+                                    />
+                            </span>
                        </section>
+                   </span>
                         <section class="fears half">
-                            <h3>Fears</h3>
-                            <input v-for="(fear, fearIndex) in person.fears"
-                                v-model="person.fears[fearIndex]"
-                                @keydown.enter="addItem(person.fears)"
-                                @keydown.delete="removeItem(person.fears, fearIndex, $event)"
-                                />
+                            <input v-model="ol2" class="h3" />
+                            <span v-for="(fear, index) in person.ol2" class="flex flex-row flex-sp-ar flex-al-cn">
+                                <input
+                                    v-model="person.ol2[index]"
+                                    @keydown.enter="addItem(person.ol2)"
+                                    @keydown.delete="removeItem(person.ol2, index, $event)"
+                                    class="attr"
+                                    />
+                            </span>
                         </section>
-                        <section class="attributes">
-                            <h3>Attributes</h3>
+                        <section class="attributes flex flex-row flex-wp">
+                            <h3 class="wide">Attributes</h3>
                             <span v-for="(attr, attrIndex) in attributes" v-if="attr">
-                                    <input v-model="attr.title" /> <button v-on:click="removeAttr(attrIndex)">Remove Attribute</button>
+                                <input v-model="attr.title" />{{person.attributes[attrIndex].range}}<button v-on:click="removeAttr(attrIndex)">Remove Attribute</button>
                                     <input type="range" min=0 max=5 v-model="person.attributes[attrIndex].range" range="" />
-                                    {{person.attributes[attrIndex].range}}
                                     <!-- <p>{{attr.notes}}</p> -->
                             </span>
                         </section>

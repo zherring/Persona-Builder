@@ -1,9 +1,19 @@
+Array.prototype.randomElement = function () {
+    return this[Math.floor(Math.random() * this.length)]
+}
+
 new Vue({
     el: '#personaMain',
     data: {
         header: "Persona Creator",
         people: [ ],
-        attributes: [ ]
+        notes: "Biography",
+        ol1: "Goals",
+        ol2: "Fears",
+        attributes: [ ],
+        titlesAuto: ["The Specialist", "The Optimizer", "The Intern", "The Community Organizer"],
+        starterOl1: ["Easy Prioritization","Strategic thinking","Listening","Coaching","Financial acumen","Cross-functional knowledge and perspective"],
+        starterOl2: ["appearing selfish","This is as good as it’ll get","I’m settling","never getting promoted","being undervalued","too late to market","too early to market","getting overwhelmed"],
     },
     methods: {
         randomizeUser: function(personIndex) {
@@ -12,8 +22,7 @@ new Vue({
             fetch("https://randomuser.me/api/?inc=name,picture")
                 .then(data => data.json())
                 .then(function(myBlob) {
-                    VueThis.people[personIndex].name.first = myBlob.results[0].name.first;
-                    VueThis.people[personIndex].name.last = myBlob.results[0].name.last;
+                    VueThis.people[personIndex].name = `${myBlob.results[0].name.first} ${myBlob.results[0].name.last}`;
                     VueThis.people[personIndex].pics = myBlob.results[0].picture.large;
                 });
         },
@@ -22,10 +31,11 @@ new Vue({
             const newInd = this.people.length;
 
             this.people.push({
-                name: [],
+                name: "",
+                title: this.titlesAuto.randomElement(),
                 notes: "Nada",
-                goals: ["Test", "Test Again", "Test A Third"],
-                fears: ["Test", "Test Again", "Test A Third"],
+                ol1: [this.starterOl1.randomElement()],
+                ol2: [this.starterOl2.randomElement()],
                 pics: [],
                 attributes: []
             })
@@ -66,3 +76,4 @@ new Vue({
 });
 
 autosize(document.querySelector('.bio-textarea'));
+autosize(document.querySelector('.section-title'));
