@@ -5,36 +5,59 @@
 
         <script src="bower_components/vue/dist/vue.js"></script>
         <script src="bower_components/vue-resource/dist/vue-resource.min.js"></script>
+        <script src="bower_components/autoresize/autoresize.js"></script>
+
 
     </head>
     <body>
         <div id="personaMain">
             <h1>{{header}}</h1>
-
-            <div id="workarea">
-                <article class="page" v-for="(person, index) in people">
-                            <img :src="person.pics" />
-                            <h3>{{person.name}}</h3> <button v-on:click="randomizeUser(index)">Randomize User</button>
-                            <button v-on:click="deletePersona(index)">Delete Persona</button>
-                            <input v-model="person.name" />
-                            <textarea>
-                                {{person.notes}}
-                            </textarea>
-
-                            <ul>
-                                <li v-for="(attr, attrIndex) in attributes" v-if="attr">
-                                    <input v-model="attr.title" />
-                                    <input type="range" min=0 max=5 v-model="person.attributes[attrIndex].range" range="" />
-                                    {{person.attributes[attrIndex].range}}
-                                    <!-- <p>{{attr.notes}}</p> -->
-                                    <button v-on:click="removeAttr(attrIndex)">Remove Attribute</button>
-                                </li>
-                            </ul>
-                </article>
-            </div>
             <button v-on:click="createPersona">Add Persona</button>
             <button v-on:click="addAttr()">Add Attribute</button>
 
+
+            <div id="workarea">
+                <article class="page flex flex-row flex-wp" v-for="(person, index) in people">
+                    <button v-on:click="randomizeUser(index)">Randomize User</button>
+                    <button v-on:click="deletePersona(index)">Delete Persona</button>
+                        <section class="face-and-name flex flex-row flex-sp-ar flex-al-cn">
+                            <input v-model="person.name.first" class="txt-right tx-tf-uc" />
+                            <img :src="person.pics" class="persona-pic"/>
+                            <input v-model="person.name.last" class="tx-tf-uc" />
+                        </section>
+                        <section class="bio">
+                            <h3>Bio</h3>
+                            <textarea class="bio-textarea">
+                                {{person.notes}}
+                            </textarea>
+                        </section>
+
+                        <section class="goals half">
+                            <h3>Goals</h3>
+                            <input v-for="(goal, goalIndex) in person.goals" v-model="person.goals[goalIndex]"
+                                @keydown.enter="addItem(person.goals)"
+                                @keydown.delete="removeItem(person.goals, goalIndex, $event)"
+                                />
+                       </section>
+                        <section class="fears half">
+                            <h3>Fears</h3>
+                            <input v-for="(fear, fearIndex) in person.fears"
+                                v-model="person.fears[fearIndex]"
+                                @keydown.enter="addItem(person.fears)"
+                                @keydown.delete="removeItem(person.fears, fearIndex, $event)"
+                                />
+                        </section>
+                        <section class="attributes">
+                            <h3>Attributes</h3>
+                            <span v-for="(attr, attrIndex) in attributes" v-if="attr">
+                                    <input v-model="attr.title" /> <button v-on:click="removeAttr(attrIndex)">Remove Attribute</button>
+                                    <input type="range" min=0 max=5 v-model="person.attributes[attrIndex].range" range="" />
+                                    {{person.attributes[attrIndex].range}}
+                                    <!-- <p>{{attr.notes}}</p> -->
+                            </span>
+                        </section>
+                </article>
+            </div>
         </div>
 
     <script src="js/app.js"></script>

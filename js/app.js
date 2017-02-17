@@ -12,7 +12,8 @@ new Vue({
             fetch("https://randomuser.me/api/?inc=name,picture")
                 .then(data => data.json())
                 .then(function(myBlob) {
-                    VueThis.people[personIndex].name = `${myBlob.results[0].name.first} ${myBlob.results[0].name.last}`;
+                    VueThis.people[personIndex].name.first = myBlob.results[0].name.first;
+                    VueThis.people[personIndex].name.last = myBlob.results[0].name.last;
                     VueThis.people[personIndex].pics = myBlob.results[0].picture.large;
                 });
         },
@@ -21,10 +22,10 @@ new Vue({
             const newInd = this.people.length;
 
             this.people.push({
-                name: name,
+                name: [],
                 notes: "Nada",
-                goals: [],
-                fears: [],
+                goals: ["Test", "Test Again", "Test A Third"],
+                fears: ["Test", "Test Again", "Test A Third"],
                 pics: [],
                 attributes: []
             })
@@ -44,6 +45,17 @@ new Vue({
             this.attributes.splice(index, 1);
             this.people.forEach( person => person.attributes.splice(index, 1));
         },
+        addItem: function(listItems) {
+            if(listItems.length < 5 ) {
+              listItems.push(`New`);
+          } else { window.alert("Too many!"); }
+      },
+      removeItem: function(listItems, itemIndex) {
+          console.log(event.target.value.length, listItems.length);
+              if(event.target.value.length < 1 && listItems.length > 1) {
+                listItems.splice(itemIndex, 1);
+            }
+        }
     },
     created: function () {
         this.createPersona();
@@ -52,3 +64,5 @@ new Vue({
         this.addAttr("Custom Attribute 3");
       }
 });
+
+autosize(document.querySelector('.bio-textarea'));
