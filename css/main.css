@@ -130,3 +130,8 @@ textarea {
   flex-grow: 1;
   width: 50%;
   padding: .25em; }
+
+@media print {
+  .page-break {
+    display: block;
+    page-break-before: always; } }

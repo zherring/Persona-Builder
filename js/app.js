@@ -65,6 +65,9 @@ new Vue({
               if(event.target.value.length < 1 && listItems.length > 1) {
                 listItems.splice(itemIndex, 1);
             }
+        },
+        toggleActiveArea: function(area) {
+
         }
     },
     created: function () {
@@ -76,4 +79,3 @@ new Vue({
 });
 
 autosize(document.querySelector('.bio-textarea'));
-autosize(document.querySelector('.section-title'));
